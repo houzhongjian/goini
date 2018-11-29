@@ -3,7 +3,6 @@ package goini
 import (
 	"bufio"
 	"io"
-	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -13,7 +12,6 @@ var config map[string]interface{}
 
 func Init(name string) error {
 	conf := map[string]interface{}{}
-
 	f, err := os.Open(name)
 	if err != nil {
 		return err
@@ -67,8 +65,6 @@ func parseLine(line string) (key string, value interface{}, err error) {
 	} else {
 		num, err := strconv.Atoi(sArr[1])
 		if err != nil {
-			log.Printf("sArr[1]:%+v\n", sArr[1])
-			log.Printf("err:%+v\n", err)
 			return key, value, err
 		}
 		value = num

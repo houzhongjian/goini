@@ -34,10 +34,12 @@ func Init(name string) error {
 			continue
 		}
 
-		//判断是否为换行.
-		if line == "\n" {
+		//去掉换行符.
+		line = strings.Replace(line, "\n", "", -1)
+		if len(line) < 1 {
 			continue
 		}
+
 		key, value, err := parseLine(line)
 		if err != nil {
 			return err
@@ -50,7 +52,6 @@ func Init(name string) error {
 
 //解析每一行的配置.
 func parseLine(line string) (key string, value interface{}, err error) {
-	line = strings.Replace(line, "\n", "", -1)
 	sArr := strings.Split(line, "=")
 	key = sArr[0]
 

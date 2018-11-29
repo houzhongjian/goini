@@ -56,7 +56,6 @@ func parseLine(line string) (key string, value string) {
 		log.Println(index)
 		key = line[0:index]
 		value = line[index+1 : len(line)]
-		log.Println(key,":",value)
 	}
 	return key, value
 }

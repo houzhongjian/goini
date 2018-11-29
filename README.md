@@ -21,7 +21,9 @@ func main() {
         return
     }
 
-    goini.Get("db_host")
+    goini.GetString("db_host")
+    goini.GetInt("db_port")
+    goini.GetBool("isUpload")
     ...
 }
 ```

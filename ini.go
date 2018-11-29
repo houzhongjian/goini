@@ -3,15 +3,16 @@ package goini
 import (
 	"bufio"
 	"io"
+	"log"
 	"os"
 	"strconv"
 	"strings"
 )
 
-var config map[string]interface{}
+var config map[string]string
 
 func Init(name string) error {
-	conf := map[string]interface{}{}
+	conf := map[string]string{}
 	f, err := os.Open(name)
 	if err != nil {
 		return err
@@ -19,10 +20,11 @@ func Init(name string) error {
 	defer f.Close()
 	br := bufio.NewReader(f)
 	for {
-		line, err := br.ReadString('\n')
+		b, _, err := br.ReadLine()
 		if err != nil && err == io.EOF {
 			break
 		}
+		line := string(b)
 
 		//替换掉当前行里面所有的空格.
 		line = strings.Replace(line, " ", "", -1)
@@ -33,12 +35,11 @@ func Init(name string) error {
 		}
 
 		//去掉换行符.
-		line = strings.Replace(line, "\n", "", -1)
 		if len(line) < 1 {
 			continue
 		}
 
-		key, value, err := parseLine(line)
+		key, value := parseLine(line)
 		if err != nil {
 			return err
 		}
@@ -49,46 +50,29 @@ func Init(name string) error {
 }
 
 //解析每一行的配置.
-func parseLine(line string) (key string, value interface{}, err error) {
+func parseLine(line string) (key string, value string) {
 	sArr := strings.Split(line, "=")
 	key = sArr[0]
-
-	//判断是否为string.
-	if isString(sArr[1]) {
-		value = strings.Replace(sArr[1], `"`, "", -1)
-	} else if isBool(sArr[1]) {
-		if sArr[1] == "false" {
-			value = false
-		} else {
-			value = true
-		}
-	} else {
-		num, err := strconv.Atoi(sArr[1])
-		if err != nil {
-			return key, value, err
-		}
-		value = num
-	}
-
-	return key, value, nil
+	value = sArr[1]
+	return key, value
 }
 
-func isString(val string) bool {
-	return strings.HasPrefix(val, `"`)
-}
-
-func isBool(val string) bool {
-	if val == "true" {
-		return true
-	}
-
-	if val == "false" {
-		return true
-	}
-
-	return false
-}
-
-func Get(key string) interface{} {
+func GetString(key string) string {
 	return config[key]
+}
+
+func GetInt(key string) int {
+	num, err := strconv.Atoi(config[key])
+	if err != nil {
+		log.Printf("获取int错误:%+v\n", err)
+	}
+	return num
+}
+
+func GetBool(key string) bool {
+	b, err := strconv.ParseBool(config[key])
+	if err != nil {
+		log.Printf("获取bool错误%+v\n", err)
+	}
+	return b
 }

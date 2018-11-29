@@ -22,8 +22,6 @@ func main() {
     }
 
     goini.Get("db_host")
-    goini.Get("db_user")
-    goini.Get("db_passwpord")
     ...
 }
 ```

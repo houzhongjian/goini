@@ -1,6 +1,6 @@
 # goini
 
-> goini是用golang开发的一个超级轻量级的ini库。
+> goini是用golang开发的一个超级轻量级的ini库
 
 ### 安装方式
 > go get github.com/houzhongjian/goini
@@ -26,7 +26,7 @@ func main() {
 }
 ```
 
-### 配置文件实例
+### 配置文件示例
 ```
 # mysql 配置
 db_name = "blog"

@@ -43,6 +43,7 @@ func Init(name string) error {
 		if err != nil {
 			return err
 		}
+		log.Println(key,":",value)
 		conf[key] = value
 	}
 	config = conf
@@ -51,9 +52,9 @@ func Init(name string) error {
 
 //解析每一行的配置.
 func parseLine(line string) (key string, value string) {
+	key = line
 	index := strings.Index(line, "=")
 	if index > 0 {
-		log.Println(index)
 		key = line[0:index]
 		value = line[index+1 : len(line)]
 	}

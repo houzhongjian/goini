@@ -33,6 +33,7 @@ func main() {
 # mysql 配置
 db_name = blog
 db_host = 127.0.0.1
+db_pwd
 db_port = 3306
 
 #wechat
@@ -41,6 +42,7 @@ appid =sdfsffqr545242
 
 #common
 isUpload=true
+isShare
 
 #
 page_size = 50

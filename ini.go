@@ -66,6 +66,9 @@ func GetString(key string) string {
 }
 
 func GetInt(key string) int {
+	if len(config[key]) < 1 {
+		return 0
+	}
 	num, err := strconv.Atoi(config[key])
 	if err != nil {
 		log.Printf("获取int错误:%+v\n", err)
@@ -74,6 +77,9 @@ func GetInt(key string) int {
 }
 
 func GetBool(key string) bool {
+	if len(config[key]) < 1 {
+		return false
+	}
 	b, err := strconv.ParseBool(config[key])
 	if err != nil {
 		log.Printf("获取bool错误%+v\n", err)

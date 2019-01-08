@@ -11,7 +11,8 @@ import (
 
 var config map[string]string
 
-func Init(name string) error {
+//Load 加载.
+func Load(name string) error {
 	conf := map[string]string{}
 	f, err := os.Open(name)
 	if err != nil {
@@ -43,7 +44,7 @@ func Init(name string) error {
 		if err != nil {
 			return err
 		}
-		log.Println(key,":",value)
+		log.Println(key, ":", value)
 		conf[key] = value
 	}
 	config = conf

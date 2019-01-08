@@ -16,7 +16,7 @@ import (
 
 func main() {
     //初始化.
-    if err := goini.Init("app.conf"); err != nil {
+    if err := goini.Load("app.conf"); err != nil {
         log.Printf("%+v\n", err)
         return
     }

@@ -6,7 +6,7 @@
 > go get github.com/houzhongjian/goini
 
 ### 使用方式
-```
+```go
 package main
 
 import (
